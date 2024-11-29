@@ -13,6 +13,11 @@ public class LinkedList {
         size = 0;
     }
 
+    // Getter for  node
+    public LinkedNode getFirst() {
+        return first;
+    }
+
     // Add employee to the list 
     public void add(Employee employee) {
         if (size >= 10) {
@@ -21,7 +26,7 @@ public class LinkedList {
         }
 
         if (!contains(employee)) {
-        	LinkedNode newNode = new LinkedNode(employee);
+            LinkedNode newNode = new LinkedNode(employee);
             if (first == null) {
                 first = newNode;
                 last = newNode;
@@ -37,8 +42,8 @@ public class LinkedList {
 
     // Remove employee by number
     public Employee remove(Employee employee) {
-    	LinkedNode current = first;
-    	LinkedNode previous = null;
+        LinkedNode current = first;
+        LinkedNode previous = null;
 
         while (current != null) {
             if (((Employee)current.getElement()).equals(employee)) {
@@ -64,7 +69,7 @@ public class LinkedList {
 
     // Remove employees by course name
     public void removeEmployeesByCourse(String courseName) {
-    	LinkedNode current = first;
+        LinkedNode current = first;
         while (current != null) {
             Employee employee = (Employee) current.getElement();
             if (employee.getCourseName().equals(courseName)) {
@@ -76,7 +81,7 @@ public class LinkedList {
 
     // Check if the list contains employee
     public boolean contains(Employee employee) {
-    	LinkedNode current = first;
+        LinkedNode current = first;
         while (current != null) {
             if (((Employee)current.getElement()).equals(employee)) {
                 return true;
@@ -88,7 +93,7 @@ public class LinkedList {
 
     // Display all employee details 
     public void displayList() {
-    	LinkedNode current = first;
+        LinkedNode current = first;
         while (current != null) {
             ((Employee) current.getElement()).displayEmployee();
             current = current.getNext();

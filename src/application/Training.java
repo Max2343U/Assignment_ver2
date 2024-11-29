@@ -10,7 +10,7 @@ public class Training {
         Scanner scanner = new Scanner(System.in);
         LinkedList employeeList = new LinkedList();
 
-        // user input em[ploee
+        // user input for employees
         System.out.print("Enter the number of employees (up to 10): ");
         int numEmployees = scanner.nextInt();
         scanner.nextLine(); // Consume newline
@@ -30,18 +30,32 @@ public class Training {
             System.out.print("Years Working: ");
             int years = scanner.nextInt();
             scanner.nextLine(); // Consume newline
-            System.out.print("Course Name: ");
-            String courseName = scanner.nextLine();
+
+            // Allow user to choose a course, case-insensitive
+            System.out.print("Enter course name (Food Safety/Food Prep): ");
+            String courseName = scanner.nextLine().trim().toLowerCase();
+
+            if (courseName.equals("food safety") || courseName.equals("food prep")) {
+                courseName = "FOOD " + courseName;  // Correct the case to be consistent
+            } else {
+                System.out.println("Invalid course choice. Defaulting to ERROR.");
+                courseName = "FOOD ERROR";  // If invalid course name is entered
+            }
 
             Employee newEmployee = new Employee(empNumber, name, years, courseName);
             employeeList.add(newEmployee);
         }
 
-        //display destails
+        // Display all employee details
         System.out.println("\nDisplaying all employee details:");
         employeeList.displayList();
 
-        // remove bia number
+        // Search for employee by ID, name, or course name
+        System.out.println("\nEnter search query (Employee ID, Name, or Course Name): ");
+        String searchQuery = scanner.nextLine();
+        searchEmployee(employeeList, searchQuery);
+
+        // Remove employee by number
         System.out.print("\nEnter employee number to remove: ");
         int removeEmpNumber = scanner.nextInt();
         scanner.nextLine(); // Consume newline
@@ -54,19 +68,40 @@ public class Training {
             System.out.println("Employee with ID " + removeEmpNumber + " was deleted.");
         }
 
-        // display remainder
+        // Display remaining employees
         System.out.println("\nRemaining employees:");
         employeeList.displayList();
 
-        // delete employee in course
+        // Delete employees by course name
         System.out.print("\nEnter course name to delete all employees from: ");
         String courseToDelete = scanner.nextLine();
         employeeList.removeEmployeesByCourse(courseToDelete);
 
-        // display remainder
+        // Display remaining employees 
         System.out.println("\nRemaining employees after course removal:");
         employeeList.displayList();
+    }
 
-        // personal function tbd
+    // Search for an employee by id, name, or course name -- custom
+    public static void searchEmployee(LinkedList employeeList, String query) {
+        LinkedNode current = employeeList.getFirst(); // Access the 'first' node using the getter
+        boolean found = false;
+
+        while (current != null) {
+            Employee employee = (Employee) current.getElement();
+
+            // Check if the "code/input?" matches the employee number, name, or course name
+            if (String.valueOf(employee.getEmployeeNumber()).contains(query) ||
+                employee.getName().toLowerCase().contains(query.toLowerCase()) ||
+                employee.getCourseName().toLowerCase().contains(query.toLowerCase())) {
+                employee.displayEmployee(); // Display employee details
+                found = true;
+            }
+            current = current.getNext(); // Move to the next node
+        }
+
+        if (!found) {
+            System.out.println("No employee found with the search term: " + query);
+        }
     }
 }

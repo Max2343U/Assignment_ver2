@@ -6,16 +6,17 @@ public class Employee {
     private int yearsWorking;
     private String courseName;
 
-    // Constructor 
+    // Constructor
     public Employee(int employeeNumber, String name, int yearsWorking, String courseName) {
         if (yearsWorking < 5) {
             System.out.println("Employee must have more than 5 years of experience.");
             return;
         }
 
-        if (!courseName.startsWith("FOOD")) {
+        // Make course name check case-insensitive
+        if (!courseName.toUpperCase().startsWith("FOOD")) {
             this.courseName = "ERROR";
-            System.out.println(" Invalid course name. It should start with 'FOOD'. Course name updated to ERROR."); // cant thnk of what to call
+            System.out.println("Invalid course name. It should start with 'FOOD'. Course name updated to ERROR.");
         } else {
             this.courseName = courseName;
         }
@@ -25,7 +26,7 @@ public class Employee {
         this.yearsWorking = yearsWorking;
     }
 
-    // Constructor again so it doesnt run all methods/parameters as one above
+    // Default constructor for LinkedList compatibility
     public Employee() {}
 
     // Getters and setters
@@ -58,7 +59,7 @@ public class Employee {
     }
 
     public void setCourseName(String courseName) {
-        if (!courseName.startsWith("FOOD")) {
+        if (!courseName.toUpperCase().startsWith("FOOD")) {
             this.courseName = "ERROR";
             System.out.println("Invalid course name. It should start with 'FOOD'. Course name updated to ERROR.");
         } else {
@@ -66,7 +67,7 @@ public class Employee {
         }
     }
 
-    //  display employee details
+    // Display employee details
     public void displayEmployee() {
         System.out.println("Employee Number: " + employeeNumber);
         System.out.println("Name: " + name);
@@ -74,7 +75,7 @@ public class Employee {
         System.out.println("Course Name: " + courseName);
     }
 
-    // compare employees by employee number
+    // Compare employees by employee number
     public boolean equals(Employee other) {
         return this.employeeNumber == other.getEmployeeNumber();
     }
